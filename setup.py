@@ -1,11 +1,19 @@
+from os import path
+
 from setuptools import setup, find_namespace_packages
 
 from version import VERSION
+
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 setup(
     name='arsenalqa',
     version=VERSION,
     url='https://github.com/wgnet/arsenalqa',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     author='Wargaming.net QA group',
     license='Apache License 2.0',
     packages=find_namespace_packages(

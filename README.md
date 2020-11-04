@@ -75,4 +75,4 @@ print(first_todo)
 print(first_todo.http.get().title)
 >>> delectus aut autem
 ```
-Congrats! Now you can start learning this framework. **You can find next steps inside the docs directory!**
+Congrats! Now you can start learning this framework. **You can find next steps inside the [docs](https://github.com/wgnet/arsenalqa/tree/main/docs) directory!**
