@@ -19,10 +19,9 @@ setup(
     python_requires='>=3.7',
     keywords=['TESTING', 'MICROSERVICES'],
     classifiers=[
-        'Intended Audience :: QA',
-        'Topic :: Software Testing :: Microservice testing Tools',
-        'License :: OSI Approved :: Apache License 2.0',
+        'Topic :: Software Development :: Testing',
+        'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
-  ],
+    ],
 )
