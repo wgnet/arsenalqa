@@ -200,6 +200,8 @@ class Model(MutableMapping):
         return getattr(self, item)
 
     def __setitem__(self, key, value):
+        if key not in self._fields:
+            raise KeyError(f'Model: {self.__class__.__name__} has no Field: {key}')
         setattr(self, key, value)
 
     def __delitem__(self, key):
