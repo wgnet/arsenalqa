@@ -40,6 +40,14 @@ class Model(MutableMapping):
     _filter_fields = frozenset()
     _fields = frozenset()
 
+    def __init__(self, **kwargs):
+        """
+        Parameters:
+            kwargs: key-value for flexible instance attributes addition
+        """
+        for key, value in kwargs.items():
+            self[key] = value
+
     @classmethod
     def transform_incoming_data(cls, data):
         """Method for transform incoming data from transport
