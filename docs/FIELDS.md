@@ -22,7 +22,6 @@ expected_datetime = datetime(year=1981, day=21, month=2)
 actual_datetime = {"date": "1981-02-21"}["date"]
 
 print(expected_datetime == actual_datetime)
->>> False
 ```
 
 Fields can do this on the fly.
@@ -42,26 +41,20 @@ expected_datetime.date = datetime(year=1981, day=21, month=2)
 
 actual_datetime = DateTimeExample.wrap({"date": "1981-02-21"})
 
-print(expected_datetime.date == actual_datetime.date)
->>> True
+print(expected_datetime.date == actual_datetime.date)  # True
 ```
 
 Lets look inside:
 
 ``` python
 datetime_model = DateTimeExample()
-print(datetime_model.data)
->>> {}  # data of our model is empty. Lets add datetime
+print(datetime_model.data)  # data of our model is empty. Lets add datetime
 
 datetime_model.date = datetime.now()  # create datetime and set it to field date
 print(datetime_model.data)  # descriptor DateTimeField converts datetime in str type and saves it into data
->>> {'date': '2020-11-02'}
 print(datetime_model.date)  # get field from data converts field in python datetime
->>> '2020-11-02 00:00:00'
 print(type(datetime_model.data['date']))
->>> 'class str'
 print(type(datetime_model.date))
->>> 'class datetime.datetime'
 ```
 
 **ModelField and ListModelField**
@@ -71,7 +64,7 @@ We can make entities relations in deep by models.
 ``` json
 
 {
-    "game": "wow",
+    "id": 1,
     "logo":
         {
             "icon": "icon.png",
@@ -84,7 +77,7 @@ We can make entities relations in deep by models.
     ]
 }
 ```
-In this case `logo` is submodel, and countries is submodels list of Game model
+In this case `logo` is submodel, and countries is submodels list of User model
 
 ``` python
 from arsenalqa.fields import Field, ModelField, ListModelField
@@ -102,19 +95,19 @@ class Country(Model):
     currency = Field()
 
 
-class Game(Model):
-    game = Field()
+class User(Model):
+    id = Field()
     logo = ModelField(Logo)
     countries = ListModelField(Country)
 ```
 
-We has wrote all models for this case. Main model is game. Logo and Country are submodels of our model.
+We have wrote all models for this case. Main model is User. Logo and Country are submodels of our model.
 
 Lets fill this model by our dict.
 
 ``` python
-game = Game.wrap({
-    "game": "wow",
+user = User.wrap({
+    "id": 1,
     "logo":
         {
             "icon": "icon.png",
@@ -127,17 +120,14 @@ game = Game.wrap({
     ]
 })
 
-print(game)
-print(game.logo.icon)
->>> icon.png
+print(user)
+print(user.logo.icon)
 
-print(game.countries.unique_by_attrs(code="ru").currency)
->>> rub
+print(user.countries.unique_by_attrs(code="ru").currency)  # This string filters one submodel from countries list and gets country currency
 
 new_country = Country()
 new_country.code = 'us'
 new_country.currency = 'usd'
-game.countries.append(new_country)
-print(game.countries)
->>> I:[{'code': 'ru', 'currency': 'rub'}, {'code': 'eu', 'currency': 'eur'}, {'code': 'by', 'currency': 'byn'}, {'code': 'us', 'currency': 'usd'}]
+user.countries.append(new_country)
+print(user.countries)  # New country in countries list
 ```
