@@ -197,7 +197,10 @@ class Model(MutableMapping):
                 yield elem
 
     def __getitem__(self, item):
-        return getattr(self, item)
+        try:
+            return getattr(self, item)
+        except AttributeError:
+            raise KeyError(f'Model: {self.__class__.__name__} has no Field: {item}')
 
     def __setitem__(self, key, value):
         if key not in self._fields:
@@ -205,4 +208,7 @@ class Model(MutableMapping):
         setattr(self, key, value)
 
     def __delitem__(self, key):
-        delattr(self, key)
+        try:
+            delattr(self, key)
+        except AttributeError:
+            raise KeyError(f'Model: {self.__class__.__name__} has no Field: {key}')
