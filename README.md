@@ -72,4 +72,4 @@ print(first_post)
 # Lets request again from response model, and get title attribute from response model
 print(first_post.http.get().title)
 ```
-Congrats! Now you can start learning this framework. **You can find next steps onto the [docs](docs/INDEX.md) page!**
+Congrats! Now you can start learning this framework. **More [docs](https://github.com/wgnet/arsenalqa/blob/main/docs/INDEX.md) page!**
